@@ -1,0 +1,8 @@
+{
+    "python.linting.pycodestyleEnabled": false,
+    "python.linting.pydocstyleEnabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.jediEnabled": true,
+    "python.linting.enabled": true,
+    "python.languageServer": "Jedi",
+}

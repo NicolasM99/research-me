@@ -1,0 +1,5 @@
+{
+  "BASE": "https://core.ac.uk:443/api-v2",
+  "ARTICLES_SEARCH": "/articles/search",
+  "API": "lM7wbmhGjeWX6zJ09poHxd2tusCLVvRn"
+}
