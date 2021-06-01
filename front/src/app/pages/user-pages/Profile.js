@@ -36,7 +36,7 @@ const Profile = () => {
         <Row className="container-centered text-center">
           <Col>
             <h1>Hola de nuevo {user.displayName}</h1>
-            <p>Este es tu perfil.</p>
+            <p>Estas son las etiquetas que te interesan.</p>
             <Button type="primary">
               <Link to={PATHS.RECOMMENDATIONS}>Recomendaciones</Link>
             </Button>
