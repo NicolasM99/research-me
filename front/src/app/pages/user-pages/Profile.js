@@ -37,6 +37,7 @@ const Profile = () => {
           <Col>
             <h1>Hola de nuevo {user.displayName}</h1>
             <p>Estas son las etiquetas que te interesan.</p>
+            <p>PRUEBA</p>
             <Button type="primary">
               <Link to={PATHS.RECOMMENDATIONS}>Recomendaciones</Link>
             </Button>
