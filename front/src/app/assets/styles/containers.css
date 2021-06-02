@@ -1,7 +1,40 @@
 .container-centered {
   height: 100vh;
   display: flex;
+  font-family: "M PLUS Rounded 1c", sans-serif;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.container-centered h1 {
+  font-weight: bolder;
+  color: #2f4f75;
+}
+
+.container-centered p {
+  font-weight: light;
+  color: black;
+}
+
+.home {
+  align-items: flex-start;
+  justify-content: left;
+  padding-left: 6rem !important;
+  padding-top: 6rem !important;
+  background-position: right;
+  background-size: cover;
+}
+.home h1 {
+  text-align: left;
+  font-size: 9rem;
+}
+.home p {
+  text-align: left;
+  font-size: 3rem;
+}
+
+.home .ant-btn {
+  margin-left: none;
+  margin-right: 5rem;
 }
