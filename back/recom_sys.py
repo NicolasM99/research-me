@@ -61,10 +61,12 @@ class Recommend(Resource):
                 print(nt)
                 newData = {}
                 if i == 0:
-                    newData = {
-                        "id": article["id"],
-                        "score": tdidf
-                    }
+                    # newData = {
+                    #     "id": article["id"],
+                    #     "score": tdidf
+                    # }
+                    newData = article
+                    newData.append("score", tdidf)
                     scores.append(newData)
                 elif i < len(terms):
                     newData = {
