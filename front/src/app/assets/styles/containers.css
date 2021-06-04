@@ -10,6 +10,13 @@
 .container-centered h1 {
   font-weight: bolder;
   color: #2f4f75;
+  font-size: 9rem;
+}
+
+.container-centered h3 {
+  font-weight: bold;
+  color: #2f4f75;
+  font-size: 3rem;
 }
 
 .container-centered p {
@@ -27,7 +34,6 @@
 }
 .home h1 {
   text-align: left;
-  font-size: 9rem;
 }
 .home p {
   text-align: left;
@@ -37,4 +43,13 @@
 .home .ant-btn {
   margin-left: none;
   margin-right: 5rem;
+}
+
+.login {
+  background-position: right;
+  background-size: cover;
+}
+.login p {
+  font-size: 1.5rem !important;
+  color: #8f8f8f;
 }
