@@ -108,7 +108,7 @@ const Signup = () => {
             <Input style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
               onChange={() => setSignupError(null)}
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder ="Nombre de usuario"
+              placeholder="Nombre de usuario"
             />
           </Form.Item>
           {signupError && <Alert message={signupError} type="error" />}
