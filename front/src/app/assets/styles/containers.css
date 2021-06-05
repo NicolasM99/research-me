@@ -38,3 +38,24 @@
   margin-left: none;
   margin-right: 5rem;
 }
+.signup {
+  background-position: right;
+  background-size: cover;
+}
+
+.signup p {
+  color: #8f8f8f;
+  font-size: 1.5rem;
+}
+
+.signup h3 {
+  font-size: 4rem;
+  color: #2f4f75;
+  padding: 3rem;
+}
+
+.signup ::placeholder {
+  font-size: 2rem;
+  font-weight: lighter;
+  padding: 1rem;
+}

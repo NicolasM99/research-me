@@ -4,6 +4,7 @@ import firebase from "firebase/app";
 import { Form, Input, Row, Col, Checkbox, Button, Spin, Alert } from "antd";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { PATHS } from "../routes/paths";
+import background from "../assets/styles/images/login_background.png";
 
 const topics = [
   {
@@ -86,16 +87,16 @@ const Signup = () => {
   };
 
   return (
-    <Row className="container-centered p-4">
-      <Col style={{ maxWidth: "375px" }}>
-        <h3 className="text-center">Registrarse</h3>
-        <Form
+    <Row className="container-centered p-4 signup" style={{ backgroundImage: `url(${background})` }}>
+      <Col>
+        <h3 className="text-center">¡Registrate!</h3>
+        <Form 
           form={form}
           name="register"
           onFinish={onFinish}
           scrollToFirstError
         >
-          <Form.Item
+          <Form.Item 
             name="username"
             rules={[
               {
@@ -104,10 +105,10 @@ const Signup = () => {
               },
             ]}
           >
-            <Input
+            <Input style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
               onChange={() => setSignupError(null)}
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Nombre de usuario"
+              placeholder ="Nombre de usuario"
             />
           </Form.Item>
           {signupError && <Alert message={signupError} type="error" />}
@@ -125,7 +126,7 @@ const Signup = () => {
               },
             ]}
           >
-            <Input
+            <Input style={{borderRadius:"25px", width:"38rem", height:"4rem",  fontSize:"2rem"}}
               onChange={() => setSignupError(null)}
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Correo"
@@ -145,7 +146,7 @@ const Signup = () => {
             ]}
             hasFeedback
           >
-            <Input.Password
+            <Input.Password style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
               placeholder="Contraseña"
               prefix={<LockOutlined className="site-form-item-icon" />}
             />
@@ -173,7 +174,7 @@ const Signup = () => {
               }),
             ]}
           >
-            <Input.Password
+            <Input.Password style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
               placeholder="Confirmar contraseña"
               prefix={<LockOutlined className="site-form-item-icon" />}
             />
@@ -219,8 +220,8 @@ const Signup = () => {
               },
             ]}
           >
-            <Checkbox>
-              Acepto los <Link to="">Términos y Condiciones</Link>
+            <Checkbox style={{color:"black", fontSize:"2rem", fontWeight:"inital"}}>
+              Acepto los <Link style={{color:"#2F4F75", fontWeight:"normal"}} to="">Términos y Condiciones</Link>
             </Checkbox>
           </Form.Item>
           <Form.Item className="text-center">
@@ -232,7 +233,7 @@ const Signup = () => {
             {loading && <Spin />}
             <br />
             <p>
-              ¿Ya tienes cuenta? <Link to={PATHS.LOGIN}>Iniciar sesión</Link>
+              ¿Ya tienes cuenta? <Link style={{color:"#2F4F75", fontWeight:"normal", paddingLeft:"1rem"}} to={PATHS.LOGIN}>Iniciar sesión</Link>
             </p>
           </Form.Item>
         </Form>
