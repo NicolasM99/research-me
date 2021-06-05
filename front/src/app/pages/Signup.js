@@ -1,44 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import firebase from "firebase/app";
-import { Form, Input, Row, Col, Checkbox, Button, Spin, Alert } from "antd";
+import {
+  Form,
+  Input,
+  Row,
+  Col,
+  Checkbox,
+  Button,
+  Spin,
+  Alert,
+  Modal,
+} from "antd";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import background from "../assets/styles/images/login_background.png";
-
-const topics = [
-  {
-    value: "animals",
-    label: "Animales",
-  },
-  {
-    value: "music",
-    label: "Música",
-  },
-  {
-    value: "science",
-    label: "Ciencia",
-  },
-  {
-    value: "history",
-    label: "Historia",
-  },
-  {
-    value: "physics",
-    label: "Física",
-  },
-  {
-    value: "chemistry",
-    label: "Química",
-  },
-];
+import { firestore } from "../firebase/Firebase";
 
 const Signup = () => {
   firebase.auth().languageCode = "es";
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [signupError, setSignupError] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [topics, setTopics] = useState([]);
   const history = useHistory();
+  useEffect(() => {
+    firestore
+      .collection("topics")
+      .get()
+      .then((querySnapshot) => {
+        var t = [];
+        querySnapshot.forEach((doc) => t.push(doc.data()));
+        setTopics(t);
+        setLoading(false);
+      })
+      .catch((err) => setLoading(false));
+  }, []);
   const onFinish = (values) => {
     setLoading(true);
     firebase
@@ -52,11 +50,23 @@ const Signup = () => {
             displayName: values.username,
           })
           .then(() => {
-            user
-              .sendEmailVerification()
+            firestore
+              .collection("users")
+              .doc(user.uid)
+              .set({ name: user.displayName, id: user.uid, topics: topics })
               .then(() => {
-                setSignupError(null);
-                history.push(PATHS.CHECK_EMAIL);
+                user
+                  .sendEmailVerification()
+                  .then(() => {
+                    setSignupError(null);
+                    history.push(PATHS.CHECK_EMAIL);
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    console.error("ERROR AL REGISTRARSE", error);
+
+                    setSignupError(error.message);
+                  });
               })
               .catch((error) => {
                 setLoading(false);
@@ -86,17 +96,32 @@ const Signup = () => {
       });
   };
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <Row className="container-centered p-4 signup" style={{ backgroundImage: `url(${background})` }}>
+    <Row
+      className="container-centered p-4 signup"
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <Col>
         <h3 className="text-center">¡Registrate!</h3>
-        <Form 
+        <Form
           form={form}
           name="register"
           onFinish={onFinish}
           scrollToFirstError
         >
-          <Form.Item 
+          <Form.Item
             name="username"
             rules={[
               {
@@ -105,7 +130,13 @@ const Signup = () => {
               },
             ]}
           >
-            <Input style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
+            <Input
+              style={{
+                borderRadius: "25px",
+                width: "38rem",
+                height: "4rem",
+                fontSize: "2rem",
+              }}
               onChange={() => setSignupError(null)}
               prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Nombre de usuario"
@@ -126,7 +157,13 @@ const Signup = () => {
               },
             ]}
           >
-            <Input style={{borderRadius:"25px", width:"38rem", height:"4rem",  fontSize:"2rem"}}
+            <Input
+              style={{
+                borderRadius: "25px",
+                width: "38rem",
+                height: "4rem",
+                fontSize: "2rem",
+              }}
               onChange={() => setSignupError(null)}
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Correo"
@@ -146,7 +183,13 @@ const Signup = () => {
             ]}
             hasFeedback
           >
-            <Input.Password style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
+            <Input.Password
+              style={{
+                borderRadius: "25px",
+                width: "38rem",
+                height: "4rem",
+                fontSize: "2rem",
+              }}
               placeholder="Contraseña"
               prefix={<LockOutlined className="site-form-item-icon" />}
             />
@@ -174,36 +217,55 @@ const Signup = () => {
               }),
             ]}
           >
-            <Input.Password style={{borderRadius:"25px", width:"38rem", height:"4rem", fontSize:"2rem"}}
+            <Input.Password
+              style={{
+                borderRadius: "25px",
+                width: "38rem",
+                height: "4rem",
+                fontSize: "2rem",
+              }}
               placeholder="Confirmar contraseña"
               prefix={<LockOutlined className="site-form-item-icon" />}
             />
           </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: "Selecciona al menos 1",
-              },
-            ]}
-            name="checkbox-group"
-            label="Temas de interés"
+          <div className="text-center">
+            <Button onClick={showModal} disabled={loading} type="primary">
+              Escoger temas de interes
+            </Button>
+          </div>
+          <Modal
+            title="Temas de interes"
+            visible={isModalVisible}
+            cancelButtonProps={{ hidden: true }}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            closable={false}
+            okText="Cerrar"
+            cancelText="a"
           >
-            <Checkbox.Group>
-              <Row>
-                {topics.map((topic, index) => (
-                  <Col key={index} span={12}>
-                    <Checkbox
-                      value={topic.value}
-                      style={{ lineHeight: "32px" }}
-                    >
-                      {topic.label}
-                    </Checkbox>
-                  </Col>
-                ))}
-              </Row>
-            </Checkbox.Group>
-          </Form.Item>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "Selecciona al menos 1",
+                },
+              ]}
+              name="topics"
+            >
+              <Checkbox.Group>
+                <Row>
+                  {topics.map((topic, index) => (
+                    <Col key={index}>
+                      <Checkbox value={topic.id} style={{ lineHeight: "32px" }}>
+                        {topic.name}
+                      </Checkbox>
+                    </Col>
+                  ))}
+                </Row>
+              </Checkbox.Group>
+            </Form.Item>
+          </Modal>
+
           <Form.Item
             name="agreement"
             valuePropName="checked"
@@ -220,8 +282,13 @@ const Signup = () => {
               },
             ]}
           >
-            <Checkbox style={{color:"black", fontSize:"2rem", fontWeight:"inital"}}>
-              Acepto los <Link style={{color:"#2F4F75", fontWeight:"normal"}} to="">Términos y Condiciones</Link>
+            <Checkbox
+              style={{ color: "black", fontSize: "2rem", fontWeight: "inital" }}
+            >
+              Acepto los{" "}
+              <Link style={{ color: "#2F4F75", fontWeight: "normal" }} to="">
+                Términos y Condiciones
+              </Link>
             </Checkbox>
           </Form.Item>
           <Form.Item className="text-center">
@@ -233,7 +300,17 @@ const Signup = () => {
             {loading && <Spin />}
             <br />
             <p>
-              ¿Ya tienes cuenta? <Link style={{color:"#2F4F75", fontWeight:"normal", paddingLeft:"1rem"}} to={PATHS.LOGIN}>Iniciar sesión</Link>
+              ¿Ya tienes cuenta?{" "}
+              <Link
+                style={{
+                  color: "#2F4F75",
+                  fontWeight: "normal",
+                  paddingLeft: "1rem",
+                }}
+                to={PATHS.LOGIN}
+              >
+                Iniciar sesión
+              </Link>
             </p>
           </Form.Item>
         </Form>
