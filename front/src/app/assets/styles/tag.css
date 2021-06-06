@@ -1,0 +1,9 @@
+.ant-tag {
+  background-color: white;
+  color: #9598d9;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 1000px;
+  font-size: 1rem;
+  border: 1px solid #9598d9;
+}
