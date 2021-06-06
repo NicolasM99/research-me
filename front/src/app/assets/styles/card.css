@@ -3,4 +3,19 @@
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
+  color: white;
+  font-weight: 400;
+  font-size: 1.1rem;
+  padding-top: 1.5rem;
+}
+
+.ant-card-body {
+  background: linear-gradient(180deg, #9598d9 0%, #c2e4f8 100%), #ffffff;
+  box-shadow: 7px 7px 15px rgba(96, 96, 96, 0.25);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.ant-card {
+  border-radius: 20px;
 }

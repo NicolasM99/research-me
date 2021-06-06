@@ -130,12 +130,13 @@ const Recommendations = () => {
               {test.map((item, index) => (
                 <Col span={6} className="mb-4">
                   <Card
+                  hoverable
                     title={item.title}
                     extra={<a href={item.downloadUrl}>Descargar</a>}
-                    style={{ width: 300, textAlign: "left" }}
+                    style={{ width: 350, textAlign: "left"}}
                   >
                     <p>{item.description}</p>
-                    <Meta
+                    <Meta 
                       description={`${item.authors.map(
                         (author) => ` ${author}`
                       )}`}
