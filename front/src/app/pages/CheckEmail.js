@@ -5,7 +5,7 @@ import { PATHS } from "../routes/paths";
 
 const CheckEmail = () => {
   return (
-    <Row className="container-centered text-center">
+    <Row className="container-centered text-center signup">
       <Col>
         <h1>Verifica tu correo electrónico</h1>
         <p>Por favor, revisa tu bandeja de entrada para continuar.</p>

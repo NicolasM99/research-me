@@ -1,0 +1,22 @@
+.login {
+  background-position: right;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.login p {
+  font-size: 1.5rem !important;
+  color: #8f8f8f;
+}
+
+.login h3 {
+  font-size: 4rem;
+  color: #2f4f75;
+  padding: 2rem;
+}
+
+.login ::placeholder {
+  color: gray;
+  font-size: 1.5rem;
+  font-weight: lighter;
+}

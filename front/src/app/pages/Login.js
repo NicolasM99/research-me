@@ -58,7 +58,7 @@ const Login = (props) => {
 
   return (
     <Row className="container-centered login" style={{ backgroundImage: `url(${background})` }}>
-      <Col style={{ maxWidth: "375px" }}>
+      <Col>
         <h3 className="text-center">Iniciar sesión</h3>
         <Form name="normal_login" className="login-form" onFinish={onFinish}>
           {signupError && <Alert message={signupError} type="error" />}
@@ -72,7 +72,10 @@ const Login = (props) => {
               },
             ]}
           >
-            <Input
+            <Input style={{
+                borderRadius: "25px",
+                fontSize: "2rem",marginBlockEnd:"2rem"
+              }}
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Correo"
             />
@@ -86,7 +89,10 @@ const Login = (props) => {
               },
             ]}
           >
-            <Input
+            <Input style={{
+                borderRadius: "25px",
+                fontSize: "2rem", marginBlockEnd:"2rem"
+              }}
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
               placeholder="Contraseña"
@@ -106,7 +112,10 @@ const Login = (props) => {
             <br />
             <p>
               ¿No tienes cuenta?{" "}
-              <Link to={PATHS.SIGNUP}>Registrarse ahora</Link>
+              <Link  style={{
+                  color: "#2F4F75",
+                  fontWeight: "normal"
+                }} to={PATHS.SIGNUP}>Registrarse ahora</Link>
             </p>
           </Form.Item>
         </Form>

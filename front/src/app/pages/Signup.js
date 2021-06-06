@@ -115,7 +115,6 @@ const Signup = () => {
   return (
     <Row
       className="container-centered p-4 signup"
-      style={{ backgroundImage: `url(${background})` }}
     >
       <Col>
         <h3 className="text-center">¡Registrate!</h3>
@@ -229,7 +228,7 @@ const Signup = () => {
               Escoger temas de interes
             </Button>
           </div>
-          <Modal
+          <Modal 
             title="Temas de interes"
             visible={isModalVisible}
             cancelButtonProps={{ hidden: true }}
@@ -239,7 +238,7 @@ const Signup = () => {
             okText="Cerrar"
             cancelText="a"
           >
-            <Form.Item
+            <Form.Item 
               rules={[
                 {
                   required: true,
@@ -249,10 +248,10 @@ const Signup = () => {
               name="topics"
             >
               <Checkbox.Group>
-                <Row>
+                <Row style={{paddingLeft:"1rem"}}>
                   {topics.map((topic, index) => (
-                    <Col key={index}>
-                      <Checkbox value={topic} style={{ lineHeight: "32px" }}>
+                    <Col   key={index}>
+                      <Checkbox  value={topic} style={{backgroundColor:"#9598D9", color:"white", fontWeight:"bold", lineHeight: "40px", fontSize:"1.5rem", margin:"1.3rem", paddingInline:"1rem", borderRadius:"10px"}}>
                         {topic.name}
                       </Checkbox>
                     </Col>
@@ -262,7 +261,7 @@ const Signup = () => {
             </Form.Item>
           </Modal>
 
-          <Form.Item
+          <Form.Item 
             name="agreement"
             valuePropName="checked"
             rules={[
@@ -278,8 +277,8 @@ const Signup = () => {
               },
             ]}
           >
-            <Checkbox
-              style={{ color: "black", fontSize: "1rem", fontWeight: "inital" }}
+            <Checkbox 
+              style={{ color: "black", fontSize: "1rem", fontWeight: "inital", paddingTop:"2rem", paddingLeft:"6rem" }}
             >
               Acepto los{" "}
               <Link style={{ color: "#2F4F75", fontWeight: "normal" }} to="">
@@ -288,7 +287,7 @@ const Signup = () => {
             </Checkbox>
           </Form.Item>
           <Form.Item className="text-center">
-            <Button disabled={loading} type="primary" htmlType="submit">
+            <Button style={{width:"13rem"}} disabled={loading} type="primary" htmlType="submit">
               Continuar
             </Button>
 
