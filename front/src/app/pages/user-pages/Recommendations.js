@@ -63,6 +63,7 @@ const Recommendations = () => {
   const history = useHistory();
   const [error, setError] = useState(false);
   const [recommendations, setRecommendations] = useState(null);
+  const { Meta } = Card;
   useEffect(() => {
     setUser(firebase.auth().currentUser);
   }, []);
@@ -134,6 +135,11 @@ const Recommendations = () => {
                     style={{ width: 300, textAlign: "left" }}
                   >
                     <p>{item.description}</p>
+                    <Meta
+                      description={`${item.authors.map(
+                        (author) => ` ${author}`
+                      )}`}
+                    />
                   </Card>
                 </Col>
               ))}
