@@ -4,6 +4,7 @@ import { Form, Input, Button, Col, Row, Alert, Spin } from "antd";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import { PATHS } from "../routes/paths";
 import firebase from "firebase/app";
+import background from "../assets/styles/images/login_background.png";
 
 const Login = (props) => {
   const [loading, setLoading] = useState(false);
@@ -56,7 +57,7 @@ const Login = (props) => {
   };
 
   return (
-    <Row className="container-centered ">
+    <Row className="container-centered login" style={{ backgroundImage: `url(${background})` }}>
       <Col style={{ maxWidth: "375px" }}>
         <h3 className="text-center">Iniciar sesión</h3>
         <Form name="normal_login" className="login-form" onFinish={onFinish}>
