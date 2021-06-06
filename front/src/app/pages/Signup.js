@@ -53,7 +53,11 @@ const Signup = () => {
             firestore
               .collection("users")
               .doc(user.uid)
-              .set({ name: user.displayName, id: user.uid, topics: topics })
+              .set({
+                name: user.displayName,
+                id: user.uid,
+                topics: values.topics,
+              })
               .then(() => {
                 user
                   .sendEmailVerification()
@@ -133,8 +137,6 @@ const Signup = () => {
             <Input
               style={{
                 borderRadius: "25px",
-                width: "38rem",
-                height: "4rem",
                 fontSize: "2rem",
               }}
               onChange={() => setSignupError(null)}
@@ -160,8 +162,6 @@ const Signup = () => {
             <Input
               style={{
                 borderRadius: "25px",
-                width: "38rem",
-                height: "4rem",
                 fontSize: "2rem",
               }}
               onChange={() => setSignupError(null)}
@@ -186,8 +186,6 @@ const Signup = () => {
             <Input.Password
               style={{
                 borderRadius: "25px",
-                width: "38rem",
-                height: "4rem",
                 fontSize: "2rem",
               }}
               placeholder="Contraseña"
@@ -220,8 +218,6 @@ const Signup = () => {
             <Input.Password
               style={{
                 borderRadius: "25px",
-                width: "38rem",
-                height: "4rem",
                 fontSize: "2rem",
               }}
               placeholder="Confirmar contraseña"
@@ -256,7 +252,7 @@ const Signup = () => {
                 <Row>
                   {topics.map((topic, index) => (
                     <Col key={index}>
-                      <Checkbox value={topic.id} style={{ lineHeight: "32px" }}>
+                      <Checkbox value={topic} style={{ lineHeight: "32px" }}>
                         {topic.name}
                       </Checkbox>
                     </Col>
@@ -283,7 +279,7 @@ const Signup = () => {
             ]}
           >
             <Checkbox
-              style={{ color: "black", fontSize: "2rem", fontWeight: "inital" }}
+              style={{ color: "black", fontSize: "1rem", fontWeight: "inital" }}
             >
               Acepto los{" "}
               <Link style={{ color: "#2F4F75", fontWeight: "normal" }} to="">

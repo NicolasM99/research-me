@@ -45,14 +45,18 @@ const Profile = () => {
   };
   return (
     <>
-      {loading && user === "initial" && topics.length === 0 ? (
-        <Spin />
+      {loading || user === "initial" || topics.length === 0 ? (
+        <Row className="container-centered text-center">
+          <Col>
+            <Spin />
+          </Col>
+        </Row>
       ) : (
         user && (
           <Row className="container-centered text-center">
             <Col>
-              <h1>Hola de nuevo {user.displayName}</h1>
-              <p>Estas son las etiquetas que te interesan...</p>
+              <h1>Hola de nuevo {user.displayName}...</h1>
+              <p>Estas son las etiquetas que te interesan</p>
               {topics.map((topic) => (
                 <Tag color="white">{topic.name}</Tag>
               ))}

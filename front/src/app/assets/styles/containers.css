@@ -10,7 +10,7 @@
 .container-centered h1 {
   font-weight: bolder;
   color: #2f4f75;
-  font-size: 9rem;
+  font-size: 5rem;
 }
 
 .container-centered h3 {
@@ -37,7 +37,7 @@
 }
 .home p {
   text-align: left;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .home .ant-btn {
@@ -73,7 +73,7 @@
 }
 
 .signup ::placeholder {
-  font-size: 2rem;
+  color: gray;
+  font-size: 1.5rem;
   font-weight: lighter;
-  padding: 1rem;
 }
