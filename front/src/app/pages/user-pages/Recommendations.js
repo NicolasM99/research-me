@@ -1,9 +1,60 @@
-import { Button, Col, Row, Spin } from "antd";
+import { Button, Card, Col, Row, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import { PATHS } from "../../routes/paths";
 import { useHistory, withRouter } from "react-router";
 import { Link } from "react-router-dom";
+
+const project = {
+  title: "Title test",
+  authors: ["Autor 1", "Autor 2"],
+  topics: ["Tema 1, Tema 2, Tema 3"],
+  downloadUrl: "#",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+};
+const test = [
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+  project,
+];
 
 const Recommendations = () => {
   const [user, setUser] = useState("initial");
@@ -12,12 +63,11 @@ const Recommendations = () => {
   const history = useHistory();
   const [error, setError] = useState(false);
   const [recommendations, setRecommendations] = useState(null);
-
   useEffect(() => {
     setUser(firebase.auth().currentUser);
   }, []);
   useEffect(() => {
-    if (user) {
+    if (user && user !== "initial") {
       setLoadingUser(false);
     } else if (user !== "initial" && !user) {
       history.push(PATHS.LOGIN);
@@ -66,16 +116,28 @@ const Recommendations = () => {
       ) : (
         <Row className="container-centered text-center">
           <Col>
+            <br />
+            <br />
+            <Button>
+              <Link to={PATHS.PROFILE}>Perfil</Link>
+            </Button>
+            <br />
+            <br />
             {error && <h1>Ha ocurrido un error en el sistema</h1>}
             <h1>{user.displayName}, esto es lo que te recomendamos</h1>
-            <Button
-              disabled={loading}
-              type="primary"
-              onClick={() => handleRecommendations()}
-            >
-              Generar recomendaciones
-            </Button>
-
+            <Row className="p-5">
+              {test.map((item, index) => (
+                <Col span={6} className="mb-4">
+                  <Card
+                    title={item.title}
+                    extra={<a href={item.downloadUrl}>Descargar</a>}
+                    style={{ width: 300, textAlign: "left" }}
+                  >
+                    <p>{item.description}</p>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
             {loading && (
               <>
                 <br />
@@ -83,11 +145,6 @@ const Recommendations = () => {
                 <Spin />
               </>
             )}
-            <br />
-            <br />
-            <Button>
-              <Link to={PATHS.PROFILE}>Perfil</Link>
-            </Button>
           </Col>
         </Row>
       )}
