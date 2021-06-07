@@ -44,6 +44,7 @@ const Signup = () => {
       .createUserWithEmailAndPassword(values.email, values.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        const topic_labels = values.topics.map((topic) => topic.name);
         console.log(user);
         user
           .updateProfile({
@@ -57,8 +58,10 @@ const Signup = () => {
                 name: user.displayName,
                 id: user.uid,
                 topics: values.topics,
+                topic_labels: topic_labels,
                 projects: [],
                 newTopics: [],
+                page: 0,
               })
               .then(() => {
                 user

@@ -20,7 +20,7 @@ const Login = (props) => {
         const user = userCredential.user;
         if (user.emailVerified) {
           setLoading(false);
-          history.push(PATHS.PROFILE);
+          history.push(PATHS.RECOMMENDATIONS);
         } else {
           firebase
             .auth()
@@ -57,7 +57,10 @@ const Login = (props) => {
   };
 
   return (
-    <Row className="container-centered login" style={{ backgroundImage: `url(${background})` }}>
+    <Row
+      className="container-centered login"
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <Col style={{ maxWidth: "375px" }}>
         <h3 className="text-center">Iniciar sesión</h3>
         <Form name="normal_login" className="login-form" onFinish={onFinish}>

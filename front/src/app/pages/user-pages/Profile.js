@@ -24,7 +24,7 @@ const Profile = () => {
         .then((res) => {
           const data = res.data();
           setLoading(false);
-          setTopics(data.topics);
+          setTopics(data.topic_labels);
         })
         .catch((error) => console.log(error));
     } else if (user !== "initial" && !user) {
@@ -58,7 +58,7 @@ const Profile = () => {
               <h1>Hola de nuevo {user.displayName}...</h1>
               <p>Estas son las etiquetas que te interesan</p>
               {topics.map((topic) => (
-                <Tag color="white">{topic.name}</Tag>
+                <Tag color="white">{topic}</Tag>
               ))}
               <br />
               <br />
