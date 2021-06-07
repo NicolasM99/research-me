@@ -20,7 +20,7 @@ const Login = (props) => {
         const user = userCredential.user;
         if (user.emailVerified) {
           setLoading(false);
-          history.push(PATHS.RECOMMENDATIONS);
+          history.push(PATHS.PROFILE);
         } else {
           firebase
             .auth()
