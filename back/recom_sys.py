@@ -26,60 +26,57 @@ class Recommend(Resource):
     def post(self):
         body = request.get_json()
         url = constants['BASE'] + constants['ARTICLES_SEARCH'] + \
-            '?apiKey='+constants['API']+'&fulltext=true'
+            '?apiKey='+constants['API']+'&fulltext=false&urls=true'
         headers = {'Content-Type': 'application/json',
                    'Authorization': constants['API']}
-        result = requests.post(
-            url, data=json.dumps(body), headers=headers)
-        articles = result.json()[0]["data"]
-        formated = []
-        terms = body[0]["terms"]
-        for article in articles:
-            if article["fullText"]:
-                newData = {
-                    "id": article["id"],
-                    "content": article["fullText"]
-                }
-                formated.append(newData)
-        scores = []
-
-        for i, term in enumerate(terms):
-            term = term.lower() + ' '
-            nt = 0
-            idf = 0
-            for article in formated:
-                fullText = article["content"].lower()
-                if term in fullText:
-                    nt = nt + 1
-            for j, article in enumerate(formated):
-                fullText = article["content"].lower()
-                tf = fullText.count(term)
-                idf = idf + abs(math.log10(len(formated)/(nt+1)))
-                tdidf = tf*idf
-                if tdidf != 0:
-                    tdidf = 1 - 1/tdidf
-                print(nt)
-                newData = {}
-                if i == 0:
-                    # newData = {
-                    #     "id": article["id"],
-                    #     "score": tdidf
-                    # }
-                    newData = article
-                    newData.append("score", tdidf)
-                    scores.append(newData)
-                elif i < len(terms):
-                    newData = {
-                        "id": scores[j]["id"],
-                        "score": scores[j]["score"] + tdidf
-                    }
-                    scores[j] = newData
-        auxScores = []
-        for score in scores:
-            if score['score'] != 0:
-                auxScores.append(score)
+        topics = body[0]["topics"]
         recommendations = []
-        return {'result': auxScores, 'completeResult': result.json()[0]}, 201
+        for topic in topics:
+            requestData = {
+                "query": topic["id"],
+                "page": body[0]["page"],
+                "pageSize": 50,
+            }
+            result = requests.post(
+                url, data=json.dumps([requestData]), headers=headers)
+            articles = result.json()[0]["data"]
+            terms = topic["related_topics"]
+            formated = list(filter(lambda article: article.get("description"),articles))
+            for item in formated:
+                item["related_topics"] = []
+            scores = []
+            for i, term in enumerate(terms):
+                term = term.lower() + ' '
+                nt = 0
+                idf = 0
+                for article in formated:
+                    description = article["description"].lower()
+                    if term in description:
+                        article["related_topics"].append(term)
+                        nt = nt + 1
+                for j, article in enumerate(formated):
+                    description = article["description"].lower()
+                    tf = description.count(term)
+                    idf = idf + abs(math.log10(len(formated)/(nt+1)))
+                    tdidf = tf*idf
+                    if i == 0:
+                        article["score"] = tdidf
+                        scores.append(article)
+                    elif i < len(terms):
+                        scores[j]["score"] += scores[j]["score"] + tdidf
+            auxScores = []
+            maxValueScore = max(scores, key = lambda score: score["score"])
+            maxValue = maxValueScore["score"]
+            print(maxValue)
+            for score in scores:
+                if score['score'] != 0:
+                    score["score"] = score["score"]/maxValue
+                    score["topic_id"] = topic["id"]
+                    auxScores.append(score)
+            auxScores.sort(key=lambda item:item["score"], reverse= True)
+            recommendations += auxScores
+        projects_id = list(map(lambda recommendation: recommendation.get("id"), recommendations))
+        return {'result': recommendations, 'projects_id': projects_id}, 201
 
 
 api.add_resource(HelloWorld, '/')
