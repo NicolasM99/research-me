@@ -1,0 +1,19 @@
+.profile {
+  align-items: flex-end;
+  justify-content: center;
+  padding-right: 6rem;
+  background-position: right;
+  background-size: cover;
+  background-image: url("../styles/images/profile_background.png");
+}
+
+.profile p {
+  text-align: left;
+  font-size: 2rem;
+}
+.profile .ant-btn {
+  width: 18rem;
+  height: 4rem;
+  margin: 2rem;
+  margin-left: 0px !important;
+}

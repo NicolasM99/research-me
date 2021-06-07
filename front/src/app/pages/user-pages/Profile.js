@@ -5,7 +5,6 @@ import { PATHS } from "../../routes/paths";
 import { useHistory, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore } from "../../firebase/Firebase";
-
 const Profile = () => {
   const [user, setUser] = useState("initial");
   const [topics, setTopics] = useState([]);
@@ -53,9 +52,9 @@ const Profile = () => {
         </Row>
       ) : (
         user && (
-          <Row className="container-centered text-center">
+          <Row className="container-centered profile">
             <Col>
-              <h1>Hola de nuevo {user.displayName}...</h1>
+              <h1>Hola de nuevo <br/> {user.displayName}...</h1>
               <p>Estas son las etiquetas que te interesan</p>
               {topics.map((topic) => (
                 <Tag color="white">{topic}</Tag>
@@ -65,8 +64,7 @@ const Profile = () => {
               <Button type="primary">
                 <Link to={PATHS.RECOMMENDATIONS}>Recomendaciones</Link>
               </Button>
-              <br />
-              <br />
+              
               <Button onClick={() => handleSignOut()}>Cerrar sesión</Button>
             </Col>
           </Row>

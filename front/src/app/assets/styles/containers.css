@@ -44,36 +44,3 @@
   margin-left: none;
   margin-right: 5rem;
 }
-
-.login {
-  background-position: right;
-  background-size: cover;
-}
-.login p {
-  font-size: 1.5rem !important;
-  color: #8f8f8f;
-}
-.signup {
-  background-position: right;
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  height: 100%;
-}
-
-.signup p {
-  color: #8f8f8f;
-  font-size: 1.5rem;
-}
-
-.signup h3 {
-  font-size: 4rem;
-  color: #2f4f75;
-  padding: 3rem;
-}
-
-.signup ::placeholder {
-  color: gray;
-  font-size: 1.5rem;
-  font-weight: lighter;
-}
