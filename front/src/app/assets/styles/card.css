@@ -1,7 +1,7 @@
-.ant-card-body p {
+.ant-card-body .contracted {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   color: white;
   font-weight: 400;
@@ -9,8 +9,15 @@
   padding-top: 1.5rem;
 }
 
+.ant-card-body .expanded {
+  color: white;
+  font-weight: 400;
+  font-size: 1.1rem;
+  padding-top: 1.5rem;
+}
+
 .ant-card-body {
-  background: linear-gradient(180deg, #9598d9 0%, #c2e4f8 100%), #ffffff;
+  background: linear-gradient(180deg, #7d80b8 0%, #9dbed1 100%), #ffffff;
   box-shadow: 7px 7px 15px rgba(96, 96, 96, 0.25);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -18,4 +25,8 @@
 
 .ant-card {
   border-radius: 20px;
+}
+.ant-card-meta-description {
+  color: white !important;
+  font-weight: bold;
 }

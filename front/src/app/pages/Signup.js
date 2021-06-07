@@ -57,6 +57,8 @@ const Signup = () => {
                 name: user.displayName,
                 id: user.uid,
                 topics: values.topics,
+                projects: [],
+                newTopics: [],
               })
               .then(() => {
                 user
